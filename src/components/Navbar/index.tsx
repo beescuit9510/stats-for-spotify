@@ -1,3 +1,5 @@
+import { authState, useAuthState } from '@/atom/authModalAtom';
+import { logout } from '@/spotify/spotifyApi';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import {
   Divider,
@@ -12,16 +14,25 @@ import {
   MenuItem,
   IconButton,
   MenuDivider,
+  Button,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import { ImStatsBars } from 'react-icons/im';
+import { useResetRecoilState } from 'recoil';
 
 type NavbarProps = {};
 
 const Navbar: React.FC<NavbarProps> = () => {
+  const [authStateValue, setAuthStateValue] = useAuthState();
+  const resetAuthStatus = useResetRecoilState(authState);
+
+  const handleLogout = () => {
+    logout();
+    resetAuthStatus();
+  };
   return (
-    <Box position='sticky'>
+    <Box position='sticky' zIndex={1}>
       <Flex alignItems={'center'} padding='2rem' maxWidth='860px' mx='auto'>
         <Link href='/'>
           <Flex justify={'center'} align={'center'} mr='1rem'>
@@ -41,12 +52,15 @@ const Navbar: React.FC<NavbarProps> = () => {
         >
           <Link href='/tracks/top'>Top Tracks</Link>
           <Link href='/artists/top'>Top Artists</Link>
-          <Link href='/genre/top'>Top Generes</Link>
           <Link href='/tracks/recent'>Recently played</Link>
         </Stack>
-        <Flex display={{ base: 'none', md: 'unset' }}>
-          <Link href='/'>Account</Link>
-        </Flex>
+        {authStateValue.accessToken && (
+          <Flex display={{ base: 'none', md: 'unset' }}>
+            <Flex onClick={handleLogout} cursor={'pointer'}>
+              Logout
+            </Flex>
+          </Flex>
+        )}
         <Menu>
           <Flex
             flexGrow={1}
@@ -61,25 +75,25 @@ const Navbar: React.FC<NavbarProps> = () => {
               borderRadius={'5px'}
             />
             <MenuList>
-              <MenuItem>
-                <Link href='/tracks/top'>Top Tracks</Link>
-              </MenuItem>
+              <Link href='/tracks/top'>
+                <MenuItem>Top Tracks</MenuItem>
+              </Link>
               <MenuDivider />
-              <MenuItem>
-                <Link href='/artists/top'>Top Artists</Link>
-              </MenuItem>
+              <Link href='/artists/top'>
+                <MenuItem>Top Artists</MenuItem>
+              </Link>
               <MenuDivider />
-              <MenuItem>
-                <Link href='/genre/top'>Top Generes</Link>
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem>
-                <Link href='/tracks/recent'>Recently played</Link>
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem>
-                <Link href='/'>Account</Link>
-              </MenuItem>
+              <Link href='/tracks/recent'>
+                <MenuItem>Recently played</MenuItem>
+              </Link>
+              {authStateValue.accessToken && (
+                <>
+                  <MenuDivider />
+                  <Flex onClick={handleLogout} cursor={'pointer'}>
+                    <MenuItem>Logout</MenuItem>
+                  </Flex>
+                </>
+              )}
             </MenuList>
           </Flex>
         </Menu>
