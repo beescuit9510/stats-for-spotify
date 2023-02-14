@@ -9,7 +9,7 @@ console.log(clientId);
 console.log(clientSecret);
 
 const spotifyWebApi = new SpotifyWebApi({
-  redirectUri: `http://localhost:3000/api/auth/callback`,
+  redirectUri: host,
   clientId: clientId,
   clientSecret: clientSecret,
 });
