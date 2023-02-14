@@ -1,4 +1,5 @@
-# Stats for Spotify
+# Stats for Spotify 
+> https://stats-for-spotify-beescuit9510.vercel.app
 
 > login with your spotify account and view stas for your account
 
@@ -9,7 +10,6 @@
 - [General Information](#general-information)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
-- [Screenshots](#screenshots)
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
@@ -68,7 +68,7 @@
 
 ## Contact
 
-This clone project is wholye created by pengsoon20@gmail.com inspired by https://www.statsforspotify.com/  
+This clone project is solely created by pengsoon20@gmail.com inspired by https://www.statsforspotify.com/  
 feel free to contact me!
 
 <!-- Optional -->
