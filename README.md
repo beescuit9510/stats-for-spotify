@@ -5,13 +5,13 @@
 ## Table of Contents
 
 - [Stats for Spotify](#stats-for-spotify)
-  - [Table of Contents](#table-of-contents)
-  - [General Information](#general-information)
-  - [Technologies Used](#technologies-used)
-  - [Features](#features)
-  - [Screenshots](#screenshots)
-  - [Acknowledgements](#acknowledgements)
-  - [Contact](#contact)
+- [Table of Contents](#table-of-contents)
+- [General Information](#general-information)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Acknowledgements](#acknowledgements)
+- [Contact](#contact)
 
 ## General Information
 
@@ -31,9 +31,9 @@
 - view your most listend artists (last 4 weeks, last 6 months, all time)
 - view your most recently listend songs
 
-## Screenshots
+<!-- ## Screenshots -->
 
-![Example screenshot](./img/screenshot.png)
+<!-- ![Example screenshot](./img/screenshot.png) -->
 
 <!-- If you have screenshots you'd like to share, include them here. -->
 
