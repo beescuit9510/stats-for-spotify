@@ -1,5 +1,4 @@
 import spotifyWebApi from '@/spotify/spotifyWebApi';
-import type { NextApiRequest, NextApiResponse } from 'next';
 
 const scopes = [
   'ugc-image-upload',
@@ -23,6 +22,6 @@ const scopes = [
   'user-follow-modify',
 ];
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req, res) {
   res.redirect(spotifyWebApi.createAuthorizeURL(scopes));
 }
