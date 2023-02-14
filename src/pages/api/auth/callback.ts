@@ -1,6 +1,6 @@
 import spotifyWebApi from '@/spotify/spotifyWebApi';
+import { setCookie } from 'cookies-next';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 
 type Data = {
   accessToken: string;

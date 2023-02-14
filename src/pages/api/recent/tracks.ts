@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { getCookie } from 'cookies-next';
 import spotifyWebApi from '@/spotify/spotifyWebApi';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -24,7 +24,8 @@ export default async function handler(
     offset: req!.query?.offset,
   };
 
-  spotifyWebApi.setAccessToken(req!.query!.accessToken as string);
+  const accessToken = getCookie('accessToken', { req }) as string;
+  spotifyWebApi.setAccessToken(accessToken);
 
   const trackItems = await spotifyWebApi.getMyRecentlyPlayedTracks(
     option as any
