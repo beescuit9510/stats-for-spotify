@@ -1,4 +1,4 @@
-import { atom, useRecoilValue, useRecoilState } from 'recoil';
+import { atom, useRecoilState, useResetRecoilState } from 'recoil';
 
 export interface AuthState {
   accessToken: string | null;
@@ -13,7 +13,7 @@ const defaultAuthState: AuthState = {
 };
 
 export const authState = atom<AuthState>({
-  key: 'AuthState',
+  key: 'authState',
   default: defaultAuthState,
 });
 

@@ -1,21 +1,11 @@
-import { useAuthState } from '@/atom/authModalAtom';
+import { useAuthState } from '@/atom/authStateAtom';
 import Explain from '@/components/Home/Explain';
 import { Button, Flex, Stack, Text } from '@chakra-ui/react';
-import { getCookie } from 'cookies-next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 export default function Home() {
   const [authState, setAuthState] = useAuthState();
-
-  useEffect(() => {
-    setAuthState({
-      accessToken: (getCookie('accessToken') as string) || null,
-      refreshToken: (getCookie('refreshToken') as string) || null,
-      expiresIn: (getCookie('expiresIn') as string) || null,
-    });
-  }, []);
 
   return (
     <>

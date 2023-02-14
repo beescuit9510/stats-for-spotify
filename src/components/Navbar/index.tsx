@@ -1,20 +1,20 @@
-import { authState, useAuthState } from '@/atom/authModalAtom';
+import { authState, useAuthState } from '@/atom/authStateAtom';
+import { useLoginAlertState } from '@/atom/loginAlertAtom';
 import { logout } from '@/spotify/spotifyApi';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Divider,
   Flex,
   Icon,
-  Stack,
-  Text,
-  Box,
+  IconButton,
   Menu,
   MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
   MenuDivider,
-  Button,
+  MenuItem,
+  MenuList,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
@@ -31,6 +31,18 @@ const Navbar: React.FC<NavbarProps> = () => {
     logout();
     resetAuthStatus();
   };
+
+  const [loginAlertState, setLoginAlertState] = useLoginAlertState();
+
+  const handleRouteChange = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!authStateValue.accessToken) {
+      event.preventDefault();
+
+      setLoginAlertState({ enabled: true });
+    }
+    return;
+  };
+
   return (
     <Box position='sticky' zIndex={1}>
       <Flex alignItems={'center'} padding='2rem' maxWidth='860px' mx='auto'>
@@ -50,16 +62,30 @@ const Navbar: React.FC<NavbarProps> = () => {
           spacing={'1rem'}
           display={{ base: 'none', md: 'unset' }}
         >
-          <Link href='/tracks/top'>Top Tracks</Link>
-          <Link href='/artists/top'>Top Artists</Link>
-          <Link href='/tracks/recent'>Recently played</Link>
+          <Link href='/tracks/top' onClick={handleRouteChange}>
+            Top Tracks
+          </Link>
+          <Link href='/artists/top' onClick={handleRouteChange}>
+            Top Artists
+          </Link>
+          <Link href='/tracks/recent' onClick={handleRouteChange}>
+            Recently played
+          </Link>
         </Stack>
-        {authStateValue.accessToken && (
+        {authStateValue.accessToken ? (
           <Flex display={{ base: 'none', md: 'unset' }}>
             <Flex onClick={handleLogout} cursor={'pointer'}>
               Logout
             </Flex>
           </Flex>
+        ) : (
+          <Link href='/api/auth'>
+            <Flex display={{ base: 'none', md: 'unset' }}>
+              <Flex onClick={handleLogout} cursor={'pointer'}>
+                Login
+              </Flex>
+            </Flex>
+          </Link>
         )}
         <Menu>
           <Flex
@@ -75,23 +101,32 @@ const Navbar: React.FC<NavbarProps> = () => {
               borderRadius={'5px'}
             />
             <MenuList>
-              <Link href='/tracks/top'>
+              <Link href='/tracks/top' onClick={handleRouteChange}>
                 <MenuItem>Top Tracks</MenuItem>
               </Link>
               <MenuDivider />
-              <Link href='/artists/top'>
+              <Link href='/artists/top' onClick={handleRouteChange}>
                 <MenuItem>Top Artists</MenuItem>
               </Link>
               <MenuDivider />
-              <Link href='/tracks/recent'>
+              <Link href='/tracks/recent' onClick={handleRouteChange}>
                 <MenuItem>Recently played</MenuItem>
               </Link>
-              {authStateValue.accessToken && (
+              {authStateValue.accessToken ? (
                 <>
                   <MenuDivider />
                   <Flex onClick={handleLogout} cursor={'pointer'}>
                     <MenuItem>Logout</MenuItem>
                   </Flex>
+                </>
+              ) : (
+                <>
+                  <MenuDivider />
+                  <Link href='/api/auth'>
+                    <Flex onClick={handleLogout} cursor={'pointer'}>
+                      <MenuItem>Login</MenuItem>
+                    </Flex>
+                  </Link>
                 </>
               )}
             </MenuList>

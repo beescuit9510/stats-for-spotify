@@ -1,6 +1,9 @@
+import { useAuthState } from '@/atom/authStateAtom';
+import { useLoginAlertState } from '@/atom/loginAlertAtom';
 import { TabType, topTabTypes } from '@/spotify/spotifyApi';
 import { Flex, Text } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import React, { ReactNode, useEffect } from 'react';
 import TabItem from './TabItem';
 
 type StatsProps = {
@@ -16,6 +19,22 @@ const Stats: React.FC<StatsProps> = ({
   selectedTap,
   setSelectedTap,
 }) => {
+  const [authState, setAuthState] = useAuthState();
+  const [loginAlertState, setLoginAlertState] = useLoginAlertState();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authState.accessToken) {
+      setLoginAlertState({ enabled: true });
+
+      router.push('/');
+    }
+  }, [authState.accessToken]);
+
+  if (!authState.accessToken) {
+    return <></>;
+  }
+
   if (selectedTap && setSelectedTap) {
     return (
       <Flex direction={'column'}>

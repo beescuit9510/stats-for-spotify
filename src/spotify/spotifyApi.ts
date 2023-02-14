@@ -1,7 +1,12 @@
 import { getCookie, removeCookies } from 'cookies-next';
 
 const getAccessToken = () => {
-  return getCookie('accessToken') as string | null;
+  const accessToken = getCookie('accessToken') as string | undefined;
+  if (accessToken === 'undefined' || accessToken === 'null') {
+    console.log('accessToken is undefined or null');
+    new Error('No access token found');
+  }
+  return accessToken;
 };
 
 export type TabType = 'all time' | 'last 6 months' | 'last 4 weeks';
