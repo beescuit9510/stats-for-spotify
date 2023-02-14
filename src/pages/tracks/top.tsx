@@ -6,7 +6,7 @@ import {
   topTabTypes,
   Track,
 } from '@/spotify/spotifyApi';
-import { Stack } from '@chakra-ui/react';
+import { Flex, Skeleton, Stack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 const TopTrackPage: React.FC = () => {
@@ -25,9 +25,29 @@ const TopTrackPage: React.FC = () => {
       setSelectedTap={setSelectedTap}
     >
       <Stack>
-        {tracks.map((track) => {
-          return <TrackItem key={track.rank} track={track} />;
-        })}
+        {tracks.length !== 0
+          ? tracks.map((track) => {
+              return <TrackItem key={track.rank} track={track} />;
+            })
+          : new Array(25).fill(0).map((ele, index) => {
+              return (
+                <Stack
+                  key={index}
+                  spacing='1rem'
+                  padding={'2rem'}
+                  paddingBottom='0rem'
+                >
+                  <Flex justify='space-between' align='center' gap={'1rem'}>
+                    <Skeleton height='50px' width={'50px'} />
+                    <Stack height='50px' flexGrow={'1'}>
+                      <Skeleton height='20px' />
+                      <Skeleton height='20px' />
+                      <Skeleton height='20px' />
+                    </Stack>
+                  </Flex>
+                </Stack>
+              );
+            })}
       </Stack>
     </Stats>
   );

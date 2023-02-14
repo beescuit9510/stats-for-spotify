@@ -6,8 +6,17 @@ import {
   TabType,
   topTabTypes,
 } from '@/spotify/spotifyApi';
-import { Flex } from '@chakra-ui/react';
+import {
+  Flex,
+  Skeleton,
+  Stack,
+  Text,
+  Image,
+  Icon,
+  Box,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { RxCounterClockwiseClock } from 'react-icons/rx';
 
 const ArtistTopPage: React.FC = () => {
   const [selectedTap, setSelectedTap] = useState<TabType>(topTabTypes[0]);
@@ -31,9 +40,28 @@ const ArtistTopPage: React.FC = () => {
           justify='space-between'
           mt={'3rem'}
         >
-          {artists.map((artist) => {
-            return <ArtistItem artist={artist} key={artist.artistId} />;
-          })}
+          {artists.length !== 0
+            ? artists.map((artist) => {
+                return <ArtistItem artist={artist} key={artist.artistId} />;
+              })
+            : new Array(25).fill(0).map((ele, index) => {
+                return (
+                  <Flex
+                    as={Skeleton}
+                    justify={'center'}
+                    align={'center'}
+                    width={{ base: '100%', md: '30%' }}
+                    height={{ base: '22%', md: '30%' }}
+                    direction='column'
+                    paddingBottom={'2rem'}
+                    marginBottom={'1rem'}
+                    marginTop={'1rem'}
+                    key={index}
+                  >
+                    i am a dummy text
+                  </Flex>
+                );
+              })}
         </Flex>
       </Stats>
     </>
