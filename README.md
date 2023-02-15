@@ -21,9 +21,8 @@
 ## Technologies Used
 
 - React
-- Nextjs
-- typescript
-- chakra ui
+- Recoil
+- Chakra UI
 
 ## Features
 
