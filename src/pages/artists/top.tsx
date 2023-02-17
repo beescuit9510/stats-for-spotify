@@ -24,6 +24,7 @@ const ArtistTopPage: React.FC = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
+    setArtists([]);
     fetchTopArtists(selectedTap).then(setArtists);
   }, [selectedTap]);
 

@@ -1,13 +1,4 @@
-import { getCookie, removeCookies } from 'cookies-next';
-
-const getAccessToken = () => {
-  const accessToken = getCookie('accessToken') as string | undefined;
-  if (accessToken === 'undefined' || accessToken === 'null') {
-    console.log('accessToken is undefined or null');
-    new Error('No access token found');
-  }
-  return accessToken;
-};
+import { removeCookies } from 'cookies-next';
 
 export type TabType = 'all time' | 'last 6 months' | 'last 4 weeks';
 
@@ -35,9 +26,7 @@ export const fetchTopTracks = async (
   selectedTap: TabType
 ): Promise<Track[]> => {
   const res = await fetch(
-    `/api/top/tracks?accessToken=${getAccessToken()}&limit=50&timeRange=${
-      timeRange[selectedTap]
-    }`
+    `/api/top/tracks?limit=50&timeRange=${timeRange[selectedTap]}`
   );
   const data = await res.json();
   return data?.tracks as Track[];
@@ -54,9 +43,7 @@ export const fetchTopArtists = async (
   selectedTap: TabType
 ): Promise<Artist[]> => {
   const res = await fetch(
-    `/api/top/artists?accessToken=${getAccessToken()}&limit=50&timeRange=${
-      timeRange[selectedTap]
-    }`
+    `/api/top/artists?limit=50&timeRange=${timeRange[selectedTap]}`
   );
   const data = await res.json();
   return data?.artists as Artist[];
@@ -73,13 +60,13 @@ export type RecentlyPlayedTrack = {
 export const fetchRecentlyPlayedTrack = async (): Promise<
   RecentlyPlayedTrack[]
 > => {
-  const res = await fetch(
-    `/api/recent/tracks?accessToken=${getCookie('accessToken')}&limit=50`
-  );
+  const res = await fetch(`/api/recent/tracks?limit=50`);
   const data = await res.json();
   return data?.tracks as RecentlyPlayedTrack[];
 };
 
 export const logout = () => {
   removeCookies('accessToken');
+  removeCookies('refreshToken');
+  removeCookies('expiresIn');
 };

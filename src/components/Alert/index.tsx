@@ -1,4 +1,5 @@
-import { useLoginAlertState, loginAlertState } from '@/atom/loginAlertAtom';
+import { useAuthState } from '@/atom/authStateAtom';
+import { useLoginAlertState } from '@/atom/loginAlertAtom';
 import {
   Alert,
   AlertDescription,
@@ -6,14 +7,18 @@ import {
   AlertTitle,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import { useResetRecoilState } from 'recoil';
 
 const ErrorAlert: React.FC = () => {
   const [loginAlertValue, setLoginAlertState] = useLoginAlertState();
+  const [authState, setAuthState] = useAuthState();
 
   useEffect(() => {
     setTimeout(() => setLoginAlertState({ enabled: false }), 30000);
   }, [loginAlertValue]);
+
+  useEffect(() => {
+    setLoginAlertState({ enabled: false });
+  }, [authState]);
 
   if (!loginAlertValue.enabled) {
     return <></>;
