@@ -15,6 +15,7 @@ const TopTrackPage: React.FC = () => {
   const [tracks, setTracks] = useState<Track[]>([]);
 
   useEffect(() => {
+    setTracks([]);
     fetchTopTracks(selectedTap).then(setTracks);
   }, [selectedTap]);
 
