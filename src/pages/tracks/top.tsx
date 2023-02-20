@@ -28,7 +28,13 @@ const TopTrackPage: React.FC = () => {
       <Stack>
         {tracks.length !== 0
           ? tracks.map((track) => {
-              return <TrackItem key={track.rank} track={track} />;
+              return (
+                <TrackItem
+                  key={track.rank}
+                  track={track}
+                  tabType={selectedTap}
+                />
+              );
             })
           : new Array(25).fill(0).map((ele, index) => {
               return (

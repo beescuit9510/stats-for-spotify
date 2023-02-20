@@ -1,3 +1,4 @@
+import { statsModalState } from '@/atom/statsModalAtom';
 import { TabType } from '@/spotify/spotifyApi';
 import { Flex } from '@chakra-ui/react';
 import React from 'react';

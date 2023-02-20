@@ -43,7 +43,13 @@ const ArtistTopPage: React.FC = () => {
         >
           {artists.length !== 0
             ? artists.map((artist) => {
-                return <ArtistItem artist={artist} key={artist.artistId} />;
+                return (
+                  <ArtistItem
+                    artist={artist}
+                    key={artist.artistId}
+                    tabType={selectedTap}
+                  />
+                );
               })
             : new Array(25).fill(0).map((ele, index) => {
                 return (

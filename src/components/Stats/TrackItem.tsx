@@ -1,11 +1,25 @@
-import { Track } from '@/spotify/spotifyApi';
+import { statsModalState } from '@/atom/statsModalAtom';
+import { getTimeRangeByTabType, TabType, Track } from '@/spotify/spotifyApi';
 import { Flex, Icon, Image, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { RxCounterClockwiseClock } from 'react-icons/rx';
+import { useSetRecoilState } from 'recoil';
 
-type TrackItemProps = { track: Track };
+type TrackItemProps = { track: Track; tabType: TabType };
 
-const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
+const TrackItem: React.FC<TrackItemProps> = ({ track, tabType }) => {
+  const setStatsModalValue = useSetRecoilState(statsModalState);
+
+  const handleModal = () => {
+    setStatsModalValue({
+      isOpen: true,
+      target: 'tracks',
+      id: track.trackId,
+      chartLabel: `${track.title} - ${track.artists.join(', ')}`,
+      timeRange: getTimeRangeByTabType(tabType),
+    });
+  };
+
   return (
     <Stack
       direction={'row'}
@@ -31,7 +45,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
             {track.artists.join(', ')}
           </Text>
         </Flex>
-        <Flex fontSize={'1.5rem'}>
+        <Flex fontSize={'1.5rem'} onClick={handleModal} cursor={'pointer'}>
           <Icon as={RxCounterClockwiseClock} />
         </Flex>
       </Stack>

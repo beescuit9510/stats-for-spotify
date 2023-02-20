@@ -4,6 +4,7 @@ import { TabType, topTabTypes } from '@/spotify/spotifyApi';
 import { Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect } from 'react';
+import StatsModal from './StatsModal';
 import TabItem from './TabItem';
 
 type StatsProps = {
@@ -38,6 +39,7 @@ const Stats: React.FC<StatsProps> = ({
   if (selectedTap && setSelectedTap) {
     return (
       <Flex direction={'column'}>
+        <StatsModal />
         <Text fontSize={'2rem'} padding='2rem' paddingLeft={0}>
           {pageTitle} ( {selectedTap} )
         </Text>

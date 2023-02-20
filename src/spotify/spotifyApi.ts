@@ -1,12 +1,17 @@
 import { removeCookies } from 'cookies-next';
 
 export type TabType = 'all time' | 'last 6 months' | 'last 4 weeks';
+export type TimeRange = 'long_term' | 'medium_term' | 'short_term';
 
 export const topTabTypes: TabType[] = [
   'last 4 weeks',
   'last 6 months',
   'all time',
 ];
+
+export function getTimeRangeByTabType(tabType: TabType): TimeRange {
+  return timeRange[tabType] as TimeRange;
+}
 
 const timeRange = {
   'all time': 'long_term',
@@ -26,7 +31,7 @@ export const fetchTopTracks = async (
   selectedTap: TabType
 ): Promise<Track[]> => {
   const res = await fetch(
-    `/api/top/tracks?limit=50&timeRange=${timeRange[selectedTap]}`
+    `/api/top/tracks?limit=50&timeRange=${getTimeRangeByTabType(selectedTap)}`
   );
   const data = await res.json();
   return data?.tracks as Track[];
@@ -43,7 +48,7 @@ export const fetchTopArtists = async (
   selectedTap: TabType
 ): Promise<Artist[]> => {
   const res = await fetch(
-    `/api/top/artists?limit=50&timeRange=${timeRange[selectedTap]}`
+    `/api/top/artists?limit=50&timeRange=${getTimeRangeByTabType(selectedTap)}`
   );
   const data = await res.json();
   return data?.artists as Artist[];
