@@ -75,8 +75,6 @@ export default async function handler(
   console.log(`Sucessfully retreived access token. Expires in ${expiresIn} s.`);
 
   setCookie('accessToken', accessToken, { req, res, maxAge: expiresIn });
-  setCookie('refreshToken', refreshToken, { req, res, maxAge: expiresIn });
-  setCookie('expiresIn', expiresIn, { req, res, maxAge: expiresIn });
 
   saveUserAndTopData(accessToken);
 

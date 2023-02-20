@@ -1,32 +1,39 @@
+import { authState } from '@/atom/authStateAtom';
+import { loginAlertState } from '@/atom/loginAlertAtom';
 import ArtistItem from '@/components/Stats/ArtistItems';
 import Stats from '@/components/Stats/Index';
 import {
   Artist,
   fetchTopArtists,
+  logout,
   TabType,
   topTabTypes,
 } from '@/spotify/spotifyApi';
-import {
-  Flex,
-  Skeleton,
-  Stack,
-  Text,
-  Image,
-  Icon,
-  Box,
-} from '@chakra-ui/react';
+import { Flex, Skeleton } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { RxCounterClockwiseClock } from 'react-icons/rx';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const ArtistTopPage: React.FC = () => {
   const [selectedTap, setSelectedTap] = useState<TabType>(topTabTypes[0]);
 
   const [artists, setArtists] = useState<Artist[]>([]);
 
+  const router = useRouter();
+  const resetAuthState = useResetRecoilState(authState);
+  const setLoginAlertValue = useSetRecoilState(loginAlertState);
+
   useEffect(() => {
-    setArtists([]);
-    fetchTopArtists(selectedTap).then(setArtists);
-  }, [selectedTap]);
+    fetchTopArtists(selectedTap)
+      .then(setArtists)
+      .catch((err) => {
+        console.error(err);
+        setLoginAlertValue({ enabled: true, type: 'tokenExpired' });
+        logout();
+        resetAuthState();
+        router.push('/');
+      });
+  }, [selectedTap, router, resetAuthState, setLoginAlertValue]);
 
   return (
     <>

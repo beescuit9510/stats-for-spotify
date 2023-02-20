@@ -26,7 +26,7 @@ const Stats: React.FC<StatsProps> = ({
 
   useEffect(() => {
     if (!authState.accessToken) {
-      setLoginAlertState({ enabled: true });
+      setLoginAlertState({ enabled: true, type: 'loginNeeded' });
 
       router.push('/');
     }

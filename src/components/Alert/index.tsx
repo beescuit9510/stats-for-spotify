@@ -1,5 +1,5 @@
 import { useAuthState } from '@/atom/authStateAtom';
-import { useLoginAlertState } from '@/atom/loginAlertAtom';
+import { loginAlertState, useLoginAlertState } from '@/atom/loginAlertAtom';
 import {
   Alert,
   AlertDescription,
@@ -7,18 +7,22 @@ import {
   AlertTitle,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
+import { useResetRecoilState } from 'recoil';
 
 const ErrorAlert: React.FC = () => {
   const [loginAlertValue, setLoginAlertState] = useLoginAlertState();
+  const resetLoginAlertState = useResetRecoilState(loginAlertState);
   const [authState, setAuthState] = useAuthState();
 
   useEffect(() => {
-    setTimeout(() => setLoginAlertState({ enabled: false }), 30000);
-  }, [loginAlertValue]);
+    setTimeout(() => resetLoginAlertState(), 30000);
+  }, [loginAlertValue, resetLoginAlertState]);
 
   useEffect(() => {
-    setLoginAlertState({ enabled: false });
-  }, [authState]);
+    if (authState.accessToken) {
+      resetLoginAlertState();
+    }
+  }, [authState, resetLoginAlertState]);
 
   if (!loginAlertValue.enabled) {
     return <></>;
@@ -27,9 +31,16 @@ const ErrorAlert: React.FC = () => {
   return (
     <Alert status='error' position={'fixed'} bottom='0'>
       <AlertIcon />
-      <AlertTitle>You have to login to view your stats</AlertTitle>
+      <AlertTitle>
+        {loginAlertValue.type === 'loginNeeded' &&
+          'You have to be logged in to view your stats'}
+        {loginAlertValue.type === 'tokenExpired' && 'Access token expired'}
+      </AlertTitle>
       <AlertDescription>
-        You can login through your Spotify account
+        {loginAlertValue.type === 'loginNeeded' &&
+          'You can login through your Spotify account'}
+        {loginAlertValue.type === 'tokenExpired' &&
+          'You need to relogin to view your stats'}
       </AlertDescription>
     </Alert>
   );

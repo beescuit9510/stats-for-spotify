@@ -1,18 +1,35 @@
+import { authState } from '@/atom/authStateAtom';
+import { loginAlertState } from '@/atom/loginAlertAtom';
 import Stats from '@/components/Stats/Index';
 import RecentTrackItem from '@/components/Stats/RecentTrackItem';
 import {
   fetchRecentlyPlayedTrack,
+  logout,
   RecentlyPlayedTrack,
 } from '@/spotify/spotifyApi';
 import { Alert, Flex, Skeleton, Stack, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const RecentPlayedTrackPage: React.FC = () => {
   const [tracks, setTracks] = useState<RecentlyPlayedTrack[]>([]);
 
+  const router = useRouter();
+  const resetAuthState = useResetRecoilState(authState);
+  const setLoginAlertValue = useSetRecoilState(loginAlertState);
+
   useEffect(() => {
-    fetchRecentlyPlayedTrack().then(setTracks);
-  }, []);
+    fetchRecentlyPlayedTrack()
+      .then(setTracks)
+      .catch((err) => {
+        console.log(err);
+        setLoginAlertValue({ enabled: true, type: 'tokenExpired' });
+        logout();
+        resetAuthState();
+        router.push('/');
+      });
+  }, [router, resetAuthState, setLoginAlertValue]);
 
   return (
     <Stats pageTitle='Top Tracks'>

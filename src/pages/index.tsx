@@ -12,8 +12,6 @@ export default function Home() {
   useEffect(() => {
     setAuthState({
       accessToken: (getCookie('accessToken') as string) || null,
-      refreshToken: (getCookie('refreshToken') as string) || null,
-      expiresIn: (getCookie('expiresIn') as string) || null,
     });
   }, []);
 

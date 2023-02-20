@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     if (!authStateValue.accessToken) {
       event.preventDefault();
 
-      setLoginAlertState({ enabled: true });
+      setLoginAlertState({ enabled: true, type: 'loginNeeded' });
     }
     return;
   };

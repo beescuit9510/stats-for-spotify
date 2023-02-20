@@ -1,23 +1,39 @@
+import { authState } from '@/atom/authStateAtom';
+import { loginAlertState } from '@/atom/loginAlertAtom';
 import Stats from '@/components/Stats/Index';
 import TrackItem from '@/components/Stats/TrackItem';
 import {
   fetchTopTracks,
+  logout,
   TabType,
   topTabTypes,
   Track,
 } from '@/spotify/spotifyApi';
 import { Flex, Skeleton, Stack } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 const TopTrackPage: React.FC = () => {
   const [selectedTap, setSelectedTap] = useState<TabType>(topTabTypes[0]);
 
   const [tracks, setTracks] = useState<Track[]>([]);
 
+  const router = useRouter();
+  const resetAuthState = useResetRecoilState(authState);
+  const setLoginAlertValue = useSetRecoilState(loginAlertState);
+
   useEffect(() => {
-    setTracks([]);
-    fetchTopTracks(selectedTap).then(setTracks);
-  }, [selectedTap]);
+    fetchTopTracks(selectedTap)
+      .then(setTracks)
+      .catch((err) => {
+        console.log(err);
+        setLoginAlertValue({ enabled: true, type: 'tokenExpired' });
+        logout();
+        resetAuthState();
+        router.push('/');
+      });
+  }, [selectedTap, router, resetAuthState, setLoginAlertValue]);
 
   return (
     <Stats
