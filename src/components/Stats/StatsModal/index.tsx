@@ -95,7 +95,7 @@ const StatsModal: React.FC<StatsModalProps> = () => {
     resetStatsModalState();
   };
 
-  const options = {
+  const options: any = {
     scales: {
       x: {
         ticks: {
@@ -109,7 +109,7 @@ const StatsModal: React.FC<StatsModalProps> = () => {
         min: 1,
         ticks: {
           stepSize: 10,
-          callback: (value) => `${51 - value}`,
+          callback: (value: any) => `${51 - (value as number)}`,
         },
       },
     },
@@ -132,8 +132,8 @@ const StatsModal: React.FC<StatsModalProps> = () => {
       },
       tooltip: {
         callbacks: {
-          label: function (tooltipItems) {
-            return 51 - tooltipItems.parsed.y;
+          label: function (tooltipItems: any) {
+            return 51 - tooltipItems?.parsed?.y;
           },
         },
       },
