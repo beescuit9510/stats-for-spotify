@@ -1,18 +1,23 @@
 import { statsModalState } from '@/atom/statsModalAtom';
 import { getTimeRangeByTabType, TabType, Track } from '@/spotify/spotifyApi';
-import { Flex, Icon, Image, Stack, Text } from '@chakra-ui/react';
-import React from 'react';
+import { Button, Flex, Icon, Image, Stack, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { RxCounterClockwiseClock } from 'react-icons/rx';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 type TrackItemProps = { track: Track; tabType: TabType };
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, tabType }) => {
   const setStatsModalValue = useSetRecoilState(statsModalState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleModal = () => {
+    setIsLoading(true);
+
     setStatsModalValue({
       isOpen: true,
+      isLoading: true,
+      setIsLoadingFalse: () => setIsLoading(false),
       target: 'tracks',
       id: track.trackId,
       chartLabel: `${track.title} - ${track.artists.join(', ')}`,
@@ -45,7 +50,15 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, tabType }) => {
             {track.artists.join(', ')}
           </Text>
         </Flex>
-        <Flex fontSize={'1.5rem'} onClick={handleModal} cursor={'pointer'}>
+        <Flex
+          as={Button}
+          fontSize={'1.5rem'}
+          onClick={handleModal}
+          cursor={'pointer'}
+          isLoading={isLoading}
+          variant='ghost'
+          _hover={{ bg: 'none' }}
+        >
           <Icon as={RxCounterClockwiseClock} />
         </Flex>
       </Stack>

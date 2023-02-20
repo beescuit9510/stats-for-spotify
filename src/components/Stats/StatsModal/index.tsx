@@ -1,6 +1,7 @@
 import { statsModalState } from '@/atom/statsModalAtom';
 import {
   Box,
+  Flex,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -117,7 +118,6 @@ const StatsModal: React.FC<StatsModalProps> = () => {
     plugins: {
       legend: {
         display: true,
-        // title: 'a',
         // position: 'top' as const,
         labels: {
           // This more specific font property overrides the global property
@@ -127,7 +127,7 @@ const StatsModal: React.FC<StatsModalProps> = () => {
         },
       },
       title: {
-        display: true,
+        display: false,
         // text: 'Chart.js Line Chart',
       },
       tooltip: {
@@ -143,6 +143,9 @@ const StatsModal: React.FC<StatsModalProps> = () => {
   if (!lineChartData || isLoading) {
     return <></>;
   }
+
+  statsModalValue.setIsLoadingFalse();
+
   return (
     <>
       <Modal isOpen={statsModalValue.isOpen} onClose={onClose} size='lg'>
@@ -161,8 +164,10 @@ const StatsModal: React.FC<StatsModalProps> = () => {
             view a ranking list
           </Box>
           <ModalCloseButton />
-          <ModalBody marginBottom={'3rem'}>
-            <Line options={options} data={lineChartData} />
+          <ModalBody margin={0} marginBottom={'3rem'}>
+            <Flex justify={'center'}>
+              <Line options={options} data={lineChartData} />
+            </Flex>
           </ModalBody>
         </ModalContent>
       </Modal>
