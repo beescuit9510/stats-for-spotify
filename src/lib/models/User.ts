@@ -8,7 +8,7 @@ export interface UserDocument extends mongoose.Document {
 
 const UserSchema = new mongoose.Schema({
   userId: { type: String, required: true, unique: true, immutable: true },
-  visitedAt: { type: [Date], immutable: true },
+  visitedAt: { type: [Date], required: true },
   createdAt: {
     type: Date,
     default: () => Date.now(),
