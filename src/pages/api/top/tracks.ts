@@ -25,7 +25,7 @@ export default async function handler(
     offset: req!.query?.offset,
   };
 
-  const accessToken = getCookie('accessToken', { req }) as string;
+  const accessToken = req.cookies.accessToken as string;
   spotifyWebApi.setAccessToken(accessToken);
 
   const trackItems = await spotifyWebApi.getMyTopTracks(option as any);
