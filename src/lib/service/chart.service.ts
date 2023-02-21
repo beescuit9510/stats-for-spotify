@@ -24,7 +24,9 @@ export async function getTopTrackChartData(
 
   return TopTrackModel.find({
     $and: [{ userId: userId }, { trackId: trackId }, { timeRange: timeRange }],
-  }).lean();
+  })
+    .sort({ timeRange: -1 })
+    .lean();
 }
 
 export async function getTopArtistChartData(
@@ -40,5 +42,7 @@ export async function getTopArtistChartData(
       { artistId: artistId },
       { timeRange: timeRange },
     ],
-  }).lean();
+  })
+    .sort({ timeRange: -1 })
+    .lean();
 }
