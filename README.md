@@ -37,7 +37,9 @@
 
 <!-- If you have screenshots you'd like to share, include them here. -->
 ![main](./readme/Screenshot 2023-02-21 at 15.51.14.png)
+
 ![top tracks](./readme/Screenshot 2023-02-21 at 15.51.52.png)
+
 ![top artists](./readme/Screenshot 2023-02-21 at 15.52.39.png)
 
 <!--## Setup-->
