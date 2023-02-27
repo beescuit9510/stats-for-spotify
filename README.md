@@ -36,11 +36,15 @@
 <!-- ![Example screenshot](./img/screenshot.png) -->
 
 <!-- If you have screenshots you'd like to share, include them here. -->
-![main](https://github.com/beescuit9510/stats-for-spotify/tree/main/readme/Screenshot 2023-02-21 at 15.51.14.png)
-
-![top tracks](https://github.com/beescuit9510/stats-for-spotify/tree/main/readme/Screenshot 2023-02-21 at 15.51.52.png)
-
-![top artists](https://github.com/beescuit9510/stats-for-spotify/tree/main/readme/Screenshot 2023-02-21 at 15.52.39.png)
+<p>
+    <img src="./readme/Screenshot 2023-02-21 at 15.51.14.png"  />
+</p>
+<p>
+    <img src="./readme/Screenshot 2023-02-21 at 15.51.52.png"  />
+</p>
+<p>
+    <img src="./readme/Screenshot 2023-02-21 at 15.52.39.png"  />
+</p>
 
 <!--## Setup-->
 <!--What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?-->
