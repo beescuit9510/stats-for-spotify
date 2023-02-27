@@ -1,6 +1,4 @@
 # Stats for Spotify 
-> https://stats-for-spotify-beescuit9510.vercel.app
-
 > login with your spotify account and view stas for your account
 
 ## Table of Contents
