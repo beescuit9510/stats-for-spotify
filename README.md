@@ -1,5 +1,5 @@
 # Stats for Spotify 
-> login with your spotify account and view stas for your account
+> Login with your spotify account and view stats for your account
 
 ## Table of Contents
 
@@ -14,8 +14,8 @@
 
 ## General Information
 
-- the project is simple, it shows stats for your spotify account
-- most top listend songs, artists, the most recently listend songs
+- This project is simple, it shows stats for your spotify account
+- Most top listened songs and artists, and the most recently listened songs
 
 ## Technologies Used
 
@@ -27,9 +27,9 @@
 
 ## Features
 
-- view your most listend songs (last 4 weeks, last 6 months, all time)
-- view your most listend artists (last 4 weeks, last 6 months, all time)
-- view your most recently listend songs
+- View your most listened songs (last 4 weeks, last 6 months, all time)
+- View your most listened artists (last 4 weeks, last 6 months, all time)
+- View your most recently listened songs
 
 ## Screenshots
 
@@ -77,8 +77,7 @@
 
 ## Contact
 
-This clone project is solely created by pengsoon20@gmail.com inspired by https://www.statsforspotify.com/  
-feel free to contact me!
+This clone project is solely created by me, feel free to contact me!
 
 <!-- Optional -->
 <!-- ## License -->
