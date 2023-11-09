@@ -73,11 +73,7 @@
 
 ## Acknowledgements
 
-- This project was inspired by https://www.statsforspotify.com/
-
-## Contact
-
-This clone project is solely created by me, feel free to contact me!
+- This project was inspired by [Stats for Spotify](https://www.statsforspotify.com/)
 
 <!-- Optional -->
 <!-- ## License -->
